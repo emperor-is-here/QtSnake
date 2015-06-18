@@ -16,6 +16,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+public slots:
+    void updateScore(int);
+
 private:
     Ui::MainWindow *ui;
     Field* field;

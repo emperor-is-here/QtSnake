@@ -36,6 +36,7 @@ private:
     bool inField(int x, int y) const;
     void die();
     void resetTail();
+    void placeFood(bool immediatly = false);
     static const int cellCount = 34;
     static const int fieldWidht = 510;
     static const int fieldHeight = 510;
@@ -44,10 +45,12 @@ private:
     Crd head, tail;
     MoveDir nextMoveDir;
     QTimer timer;
+    int score;
 
 
 signals:
     void diedNotify();
+    void updateScore(int);
 public slots:
     void makeMove();
 };
