@@ -3,13 +3,14 @@
 #include <QKeyEvent>
 #include <QPainter>
 #include <QTime>
+#include <QSound>
 
-Field::Field(QWidget *parent) : QWidget(parent), score(0)
+Field::Field(QWidget *parent) : QWidget(parent), score(0), stepDeley(defStepDeley)
 {
     qsrand(QTime::currentTime().msecsSinceStartOfDay());
     setGeometry(0, 0, fieldWidht + 1, fieldHeight + 1);
     timer.connect(&timer, SIGNAL(timeout()), this, SLOT(makeMove()));
-    timer.setInterval(100);
+    timer.setInterval(stepDeley);
     reset();
 }
 
@@ -111,8 +112,8 @@ void Field::paintEvent(QPaintEvent *)
 
 bool Field::inField(int x, int y) const
 {
-    if ((x < 0 || x > fieldWidht ) ||
-        (y < 0 || y > fieldHeight))
+    if ((x < 0 || x >= cellCount ) ||
+        (y < 0 || y >= cellCount))
         return false;
     return true;
 }
@@ -191,8 +192,15 @@ void Field::makeMove()
     if (cells[head.first][head.second] == CellState::food)
     {
        cells[head.first][head.second] = CellState::snake;
+       QSound::play("eat.wav");
        placeFood(true);
        score += 10;
+       if (score % 50 == 0)
+       {
+           QSound::play("levelup.wav");
+           stepDeley -= 20;
+           timer.setInterval(stepDeley);
+       }
        emit updateScore(score);
     } else
     {

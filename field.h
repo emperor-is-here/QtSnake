@@ -31,24 +31,27 @@ public:
     void reset();
 
 private:
+    static const int cellCount = 34;
+    static const int fieldWidht = 510;
+    static const int fieldHeight = 510;
+    static const int cellSize = 15;
+    static const int defStepDeley = 220;
 
     using Crd = QPair<qint8, qint8>;
+
     Crd MoveDir2Crd(MoveDir dir);
     bool inField(int x, int y) const;
     void die();
     void resetTail();
     void placeFood(bool immediatly = false);
-    static const int cellCount = 34;
-    static const int fieldWidht = 510;
-    static const int fieldHeight = 510;
-    static const int cellSize = 15;
+
     CellState cells[cellCount][cellCount];
     Crd head, tail;
     MoveDir nextHeadMoveDir;
     MoveDir nextTailMoveDir;
     QTimer timer;
     int score;
-
+    int stepDeley;
 
 signals:
     void diedNotify();
