@@ -18,6 +18,10 @@ public:
 
 public slots:
     void updateScore(int);
+    void diedNotify();
+
+private slots:
+    void on_playButton_clicked();
 
 private:
     Ui::MainWindow *ui;

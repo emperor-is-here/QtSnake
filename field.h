@@ -28,11 +28,12 @@ public:
     explicit Field(QWidget *parent = 0);
     void keyPressEvent(QKeyEvent * event);
     void paintEvent(QPaintEvent *);
+    void reset();
 
 private:
 
     using Crd = QPair<qint8, qint8>;
-
+    Crd MoveDir2Crd(MoveDir dir);
     bool inField(int x, int y) const;
     void die();
     void resetTail();
@@ -43,7 +44,8 @@ private:
     static const int cellSize = 15;
     CellState cells[cellCount][cellCount];
     Crd head, tail;
-    MoveDir nextMoveDir;
+    MoveDir nextHeadMoveDir;
+    MoveDir nextTailMoveDir;
     QTimer timer;
     int score;
 
