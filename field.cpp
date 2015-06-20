@@ -18,7 +18,8 @@ void Field::reset()
 {
     timer.stop();
     setFocusPolicy(Qt::ClickFocus);
-
+    score = 0;
+    stepDeley = defStepDeley;
     for(int i = 0; i < cellCount; i++)
         for(int j = 0; j < cellCount; j++)
             cells[i][j] = CellState::free;

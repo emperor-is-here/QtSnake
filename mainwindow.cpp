@@ -31,6 +31,7 @@ void MainWindow::updateScore(int score)
 void MainWindow::on_playButton_clicked()
 {
     ui->infoLabel->clear();
+    ui->scoreDisplay->display(0);
     field->reset();
     field->setFocus();
 }
